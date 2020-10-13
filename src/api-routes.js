@@ -46,7 +46,7 @@ api.post('/register', async (req, res) => {
 });
 
 api.get('/whoami', requireAuth, (req, res) => {
-  res.status(200).json(req.user.name);
+  res.status(200).json({ result: req.user.name });
 });
 
 api.post('/login', async (req, res) => {

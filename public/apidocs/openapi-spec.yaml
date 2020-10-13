@@ -1,0 +1,30 @@
+openapi: '3.0.2'
+info:
+  version: 1.0.0
+  title: MembershipJS API
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:1337/api
+components:
+  securitySchemes:
+    cookieAuth:
+      name: membership-js_authtoken
+      type: apiKey
+      in: cookie
+  schemas:
+    User:
+      $ref: 'schemas/user.yaml'
+paths:
+  /version:
+    $ref: 'paths/version.yaml'
+  /register:
+    $ref: 'paths/register.yaml'
+  /login:
+    $ref: 'paths/login.yaml'
+  /logout:
+    $ref: 'paths/logout.yaml'
+  /whoami:
+    $ref: 'paths/whoami.yaml'
+  /secret:
+    $ref: 'paths/secret.yaml'

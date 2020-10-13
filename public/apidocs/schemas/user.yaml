@@ -1,0 +1,14 @@
+properties:
+  name:
+    type: string
+    example: lea
+  password:
+    type: string
+    format: password
+    example: blume123
+  email:
+    type: string
+    example: lea@lea.de
+  role:
+    type: string
+    example: user
