@@ -1,5 +1,4 @@
 const jsonwebtoken = require('jsonwebtoken');
-const { env } = require('./env-helper');
 
 /**
  * Sign a JWT, read secret from .env file
@@ -8,15 +7,20 @@ const { env } = require('./env-helper');
  * @param options the options
  * @returns promise
  */
-export function jwtSign(payload, options = {}) {
+function jwtSign(payload, options = {}) {
   return new Promise((resolve, reject) => {
-    jsonwebtoken.sign(payload, env.JWT_SECRET, options, (err, encoded) => {
-      if (err) {
-        reject(err);
-        return;
+    jsonwebtoken.sign(
+      payload,
+      process.env.JWT_SECRET || 'superSecrect',
+      options,
+      (err, encoded) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(encoded);
       }
-      resolve(encoded);
-    });
+    );
   });
 }
 
@@ -26,14 +30,21 @@ export function jwtSign(payload, options = {}) {
  * @param token
  * @param options
  */
-export function jwtVerify(token, options = {}) {
+function jwtVerify(token, options = {}) {
   return new Promise((resolve, reject) => {
-    jsonwebtoken.verify(token, env.JWT_SECRET, options, (err, decoded) => {
-      if (err) {
-        reject(err);
-        return;
+    jsonwebtoken.verify(
+      token,
+      process.env.JWT_SECRET || 'superSecrect',
+      options,
+      (err, decoded) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(decoded);
       }
-      resolve(decoded);
-    });
+    );
   });
 }
+
+module.exports = { jwtSign, jwtVerify };

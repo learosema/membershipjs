@@ -11,7 +11,7 @@ class User {
   }
 
   toJS() {
-    const { name, email, passwordHash } = this;
+    const { name, email, passwordHash, role } = this;
     return { name, email, passwordHash, role };
   }
 }

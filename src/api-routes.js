@@ -28,36 +28,36 @@ api.get('/secret', requireAuth, (_, res) => {
 });
 
 api.post('/register', async (req, res) => {
-  const passwordHash = await hash(req.params.password, saltRounds);
+  const passwordHash = await hash(req.body.password, saltRounds);
   const userRepo = db.getRepository(User);
-  const existing = await userRepo.findOne({ name: req.params.name });
+  const existing = await userRepo.findOne({ name: req.body.name });
   if (existing) {
     res.status(403).json({ error: 'User exists' });
     return;
   }
   const user = new User({
-    name: req.params.name,
-    email: req.params.email,
+    name: req.body.name,
+    email: req.body.email,
     passwordHash,
     role: 'user',
   });
   await userRepo.save(user);
-  res.status(200).json({ result: 'Ok, registered user' });
+  res.status(200).json({ result: 'Registered user' });
 });
 
-api.get('/whoami', requireAuth, (_, res) => {
+api.get('/whoami', requireAuth, (req, res) => {
   res.status(200).json(req.user.name);
 });
 
 api.post('/login', async (req, res) => {
   const userRepo = db.getRepository(User);
-  const user = await userRepo.findOne({ name: req.params.name });
+  const user = await userRepo.findOne({ name: req.body.name });
   let isValid = false;
   if (user) {
-    isValid = await compare(req.params.password, user.passwordHash);
+    isValid = await compare(req.body.password, user.passwordHash);
   }
   if (isValid) {
-    setAuthCookie(res, userName);
+    await setAuthCookie(res, req.body.name);
     res.json({ result: 'Logged in' });
   } else {
     res.status(401).json({ error: 'Unauthorized' });

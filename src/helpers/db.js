@@ -9,7 +9,7 @@ class Repository {
   }
 
   findOne(criteria) {
-    const result = db[name].find((item) => {
+    const result = db[this.entity.name].find((item) => {
       return Object.entries(criteria)
         .map(([key, value]) => item[key] === value)
         .reduce((a, b) => a && b, true);
@@ -19,7 +19,7 @@ class Repository {
 
   find(criteria) {
     return Promise.resolve(
-      db[name].filter((item) => {
+      db[this.entity.name].filter((item) => {
         return Object.entries(criteria)
           .map(([key, value]) => item[key] === value)
           .reduce((a, b) => a && b, true);
@@ -27,21 +27,21 @@ class Repository {
     ).map((item) => new this.entity(item));
   }
 
-  save(entity) {
-    const idx = db.findIndex(
-      (item) => item[entity.primaryKey] === entity[entity.primaryKey]
+  save(newItem) {
+    const idx = db[this.entity.name].findIndex(
+      (item) => item[newItem.primaryKey] === newItem[newItem.primaryKey]
     );
     if (idx > -1) {
-      db[entity.constructor.name][idx] = entity.toJS();
+      db[this.entity.name][idx] = newItem.toJS();
     } else {
-      db[entity.constructor.name].push(entity.toJS());
+      db[this.entity.name].push(newItem.toJS());
     }
   }
 }
 
 class Database {
   getRepository(entity) {
-    return Promise.resolve(new Repository(entity));
+    return new Repository(entity);
   }
 }
 

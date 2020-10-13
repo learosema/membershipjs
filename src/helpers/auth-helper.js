@@ -1,6 +1,6 @@
 const { jwtSign, jwtVerify } = require('./security-helpers');
 const { User } = require('../entities/user');
-const { getRepository } = require('typeorm');
+const { getRepository } = require('./db');
 
 const COOKIE_NAME = 'membership-js_authtoken';
 
@@ -15,7 +15,6 @@ async function getAuthUser(req) {
       if (!user) {
         return null;
       }
-      identity.fullName = user.fullName || '';
       identity.role = user.role || 'user';
       return identity;
     } catch (ex) {
@@ -25,9 +24,9 @@ async function getAuthUser(req) {
   return null;
 }
 
-async function setAuthCookie(res, userName) {
+async function setAuthCookie(res, name) {
   try {
-    const identity = { userName };
+    const identity = { name };
     const token = await jwtSign(identity);
     res.cookie(COOKIE_NAME, token, { httpOnly: true, sameSite: true });
   } catch (ex) {
