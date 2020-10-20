@@ -1,17 +1,36 @@
+import { h } from 'https://unpkg.com/preact?module';
+import { useState } from 'https://unpkg.com/preact@10.5.5/hooks/dist/hooks.module.js';
 import { html } from '../utils/html.esm.js';
 
 export function Login() {
+  const [form, setForm] = useState({ user: '', password: '' });
+
+  const onInput = (e) => {
+    const { value, id } = e.target;
+    setForm({ ...form, [id]: value });
+  };
+
+  const onSubmit = (e) => {
+    alert(1);
+    e.preventDefault();
+  };
+
   return html`<section class="login">
-    <form>
+    <form onSubmit=${onSubmit}>
       <fieldset>
         <legend>Login</legend>
         <div class="field">
-          <label for="username">Username:</label>
-          <input id="username" />
+          <label for="user">Username:</label>
+          <input id="user" onInput=${onInput} value="${form.user}" />
         </div>
         <div class="field">
           <label for="password">Password:</label>
-          <input type="password" id="password" />
+          <input
+            type="password"
+            id="password"
+            onInput=${onInput}
+            value="${form.password}"
+          />
         </div>
         <button>login</button>
       </fieldset>
