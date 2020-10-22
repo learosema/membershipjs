@@ -1,7 +1,4 @@
-import { h } from 'https://unpkg.com/preact?module';
-import { useState } from 'https://unpkg.com/preact@10.5.5/hooks/dist/hooks.module.js';
-import { html } from '../utils/html.esm.js';
-
+import { html, useState } from '../vendor.esm.js';
 export function Login() {
   const [form, setForm] = useState({ user: '', password: '' });
 

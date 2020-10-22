@@ -1,4 +1,4 @@
-import { html } from '../utils/html.esm.js';
+import { html } from '../vendor.esm.js';
 
 export function Header() {
   return html`<header class="header">

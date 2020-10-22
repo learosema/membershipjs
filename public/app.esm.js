@@ -1,6 +1,5 @@
-import { render } from 'https://unpkg.com/preact?module';
+import { render, html } from './vendor.esm.js';
 
-import { html } from './utils/html.esm.js';
 import { Header } from './components/header.esm.js';
 import { Login } from './components/login.esm.js';
 
