@@ -1,8 +1,8 @@
 import { memberApi } from '../utils/api.esm.js';
 import { html, useState } from '../vendor.esm.js';
 
-export function Login({ setTab, setWho }) {
-  const [form, setForm] = useState({ name: '', password: '' });
+export function Register({ setTab }) {
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [errorState, setErrorState] = useState(false);
 
   const onInput = (e) => {
@@ -11,13 +11,12 @@ export function Login({ setTab, setWho }) {
   };
 
   const onSubmit = (e) => {
-    const req = memberApi.login(form.name, form.password);
+    const req = memberApi.register(form.name, form.password, form.email);
     req
       .send()
       .then((data) => {
         console.log(data);
         if (setTab) {
-          setWho(form.name);
           setTab('main');
         }
       })
@@ -28,16 +27,20 @@ export function Login({ setTab, setWho }) {
     e.preventDefault();
   };
 
-  return html`<section class="login">
+  return html`<section class="register">
     <div class="button-row">
       <button onClick=${() => setTab('main')}>Back to main</button>
     </div>
     <form onSubmit=${onSubmit}>
       <fieldset>
-        <legend>Login</legend>
+        <legend>Register</legend>
         <div class="field">
           <label for="name">Username:</label>
           <input id="name" onInput=${onInput} value="${form.name}" />
+        </div>
+        <div class="field">
+          <label for="email">Email:</label>
+          <input id="email" onInput=${onInput} value="${form.email}" />
         </div>
         <div class="field">
           <label for="password">Password:</label>
@@ -48,8 +51,8 @@ export function Login({ setTab, setWho }) {
             value="${form.password}"
           />
         </div>
-        <button>login</button>
-        ${errorState && html`<div class="error">Login failed.</div>`}
+        <button>Register</button>
+        ${errorState && html`<div class="error">Register failed.</div>`}
       </fieldset>
     </form>
   </section>`;

@@ -16,11 +16,6 @@ body {
   margin: 16px;
 }
 
-.login {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
 header {
   position: fixed;
   top: 0;
@@ -46,6 +41,14 @@ button {
   font-weight: bold;
   border-radius: 6px;
   border: none;
+}
+
+button-row {
+  margin: 8px 0;
+}
+
+button + button {
+  margin-left: 8px;
 }
 
 fieldset {
@@ -80,4 +83,13 @@ fieldset legend {
 
 .field label {
   display: block;
+}
+
+.error {
+  padding: 8px;
+  margin: 4px 0;
+  border: 1px sold red;
+  border-radius: 4px;
+  background: pink;
+  color: darkred;
 }
