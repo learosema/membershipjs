@@ -1,20 +1,37 @@
 {
   "name": "membership-js",
   "version": "1.0.0",
-  "description": "",
+  "description": "This application provides a basic API for registering users and logging in and out.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server",
+    "postinstall": "npm run install:backend -s && npm run install:frontend -s",
+    "install:backend": "cd backend && npm ci",
+    "install:frontend": "cd frontend && npm ci",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm start",
+    "start": "concurrently 'npm:frontend' 'npm:backend'",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terabaud/membershipjs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+  "bugs": {
+    "url": "https://github.com/terabaud/membershipjs/issues"
+  },
+  "homepage": "https://github.com/terabaud/membershipjs#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "husky": "^4.3.0",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
