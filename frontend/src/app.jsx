@@ -1,13 +1,11 @@
 import { render, h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 import { Header } from './components/header';
-/*import { Login } from './components/login.esm.js';
-import { Register } from './components/register.esm.js';
-import { memberApi } from './utils/api.esm.js';
-*/
+import { memberApi } from './utils/api';
+
 import './scss/index.scss';
 
 function App(props) {
-  /*
   const [who, setWho] = useState(undefined);
   useEffect(() => {
     memberApi
@@ -20,15 +18,6 @@ function App(props) {
         setWho(null);
       });
   }, []);
-
-  const onLogout = () => {
-    memberApi
-      .logout()
-      .send()
-      .then((data) => {
-        setWho(null);
-      });
-  }; */
 
   return (
     <div className="wrapper">
