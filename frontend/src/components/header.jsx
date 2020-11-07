@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import { ActiveLink } from './active-link';
 
 export function Header() {

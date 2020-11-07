@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "preact": "^10.5.5",
-    "wouter-preact": "^2.5.3"
+    "wouter-preact": "^2.5.3",
+    "zustand": "^3.1.3"
   }
 }
