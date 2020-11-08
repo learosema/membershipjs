@@ -1,0 +1,33 @@
+.header {
+  background: darkslategrey;
+  color: white;
+  max-width: initial;
+  padding: 10px;
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  nav {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    a {
+      color: white;
+      text-decoration: none;
+      padding: 0.25rem 1rem;
+
+      &:hover {
+        background: black;
+        text-decoration: underline;
+      }
+    }
+  }
+}
