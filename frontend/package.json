@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dev-proxy/server",
+    "build": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [
