@@ -1,23 +1,30 @@
 import { render, h, Fragment } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
-import { Redirect, Switch, Route, Router, Link, useRoute } from 'wouter-preact';
+import { useEffect } from 'preact/hooks';
+
+import { Switch, Route } from 'wouter-preact';
+
+import { memberApi } from './utils/api';
+import { useStore } from './store';
 
 import { Header } from './components/header';
-import { memberApi } from './utils/api';
+import { Register } from './components/register';
+import { Login } from './components/login';
+import { Logout } from './components/logout';
 
 import './scss/index.scss';
-import { Register } from './components/register';
 
 function App(props) {
+  const setUser = useStore((state) => state.setUser);
+  const user = useStore((state) => state.currentUser);
   useEffect(() => {
     memberApi
       .whoAmI()
       .send()
       .then((data) => {
-        setWho(data.result);
+        setUser(data.result);
       })
       .catch(() => {
-        setWho(null);
+        setUser(null);
       });
   }, []);
 
@@ -28,15 +35,19 @@ function App(props) {
         <Switch>
           <Route path="/">
             <h1>Welcome to MembershipJS</h1>
+            {Boolean(user) && <p>Hello {user}</p>}
           </Route>
           <Route path="/login">
-            <h1>Login</h1>
+            <Login />
           </Route>
           <Route path="/register">
             <Register />
           </Route>
           <Route path="/faq">
             <h1>FAQ</h1>
+          </Route>
+          <Route path="/logout">
+            <Logout />
           </Route>
         </Switch>
       </main>

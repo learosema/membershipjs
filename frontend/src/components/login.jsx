@@ -1,6 +1,8 @@
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import { useLocation } from 'wouter-preact';
 import { useStore } from '../store';
+import { memberApi } from '../utils/api';
 
 export function Login() {
   const [, setLocation] = useLocation();
@@ -15,21 +17,19 @@ export function Login() {
   };
 
   const onSubmit = (e) => {
+    e.preventDefault();
     const req = memberApi.login(form.name, form.password);
     req
       .send()
       .then((data) => {
         console.log(data);
-        if (setTab) {
-          setUser(form.name);
-          setLocation('/');
-        }
+        setUser(form.name);
+        setLocation('/');
       })
       .catch((ex) => {
         console.log(ex);
         setErrorState(true);
       });
-    e.preventDefault();
   };
 
   return (

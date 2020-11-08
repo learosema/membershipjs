@@ -1,6 +1,7 @@
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { useLocation } from 'wouter-preact';
+import { memberApi } from '../utils/api';
 
 export function Register() {
   const [, setLocation] = useLocation();
@@ -13,6 +14,7 @@ export function Register() {
   };
 
   const onSubmit = (e) => {
+    e.preventDefault();
     const req = memberApi.register(form.name, form.password, form.email);
     req
       .send()
@@ -24,7 +26,6 @@ export function Register() {
         console.log(ex);
         setErrorState(true);
       });
-    e.preventDefault();
   };
 
   return (
